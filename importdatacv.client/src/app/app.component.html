@@ -1,0 +1,26 @@
+<h1 id="tableLabel">Dữ liệu</h1>
+
+<p>Component này minh họa việc nhập dữ liệu từ file Excel và hiển thị trên bảng.</p>
+<button (click)="saveToDatabase()">Lưu dữ liệu lên database</button>
+<input type="file" (change)="onFileChange($event)" />
+<p *ngIf="!dataImportCV.length">Vui lòng tải lên một file Excel để xem dữ liệu.</p>
+
+<table *ngIf="dataImportCV.length">
+  <thead>
+    <tr>
+      <th style="text-align: center;">Họ Tên</th>
+      <th style="text-align: center;">Số điện thoại</th>
+      <th style="text-align: center;">Email</th>
+      <th style="text-align: center;">Hashtag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let itemDataExcelCv of dataImportCV | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+      <td>{{ itemDataExcelCv.ContactName }}</td>
+      <td>{{ itemDataExcelCv.MobilePhone }}</td>
+      <td>{{ itemDataExcelCv.Email }}</td>
+      <td>{{ itemDataExcelCv.Hashtag }}</td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls *ngIf="totalPages >= 2" (pageChange)="p = $event"></pagination-controls>
